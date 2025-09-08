@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grocessory-Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<link rel="icon" href="logo1.jpg">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: url('login.jpg') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .container:hover {
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      background: linear-gradient(to right, #00c6ff, #0072ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px 15px;
+      background:rgb(128, 128, 128);
+      border: 1px solid #80d8ff;
+      border-radius: 10px;
+      font-size: 1rem;
+      color: #fff;
+      outline: none;
+    }
+
+    .form-group label {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      background: transparent;
+      color: #ffffff;
+      pointer-events: none;
+      transition: 0.3s;
+      padding: 0 5px;
+    }
+
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label {
+      top: -10px;
+      left: 10px;
+      font-size: 0.75rem;
+      background: rgba(0, 0, 0, 0.5);
+      color: #00e5ff;
+      padding: 0 5px;
+      border-radius: 5px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(to right, #00b09b, #96c93d);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: linear-gradient(to right, #43cea2, #185a9d);
+    }
+
+    .social-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 2px solid #00e5ff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 600;
+      background: #ffffff;
+      color: #000;
+    }
+
+    .social-btn i {
+      margin-right: 10px;
+      color: #db4437;
+    }
+
+    .social-btn:hover {
+      background: #e3f2fd;
+    }
+
+    .register-link {
+      display: block;
+      margin-top: 15px;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #e1f5fe;
+    }
+
+    .register-link a {
+      color: #00e5ff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+
+    #registerModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #registerModal .modal-content {
+      background: #f0f8ff;
+      padding: 30px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+    }
+
+    #closeModal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #000;
+    }
+
+    @media(max-width: 500px) {
+      body {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Welcome Back</h2>
+  <form id="loginForm">
+    <div class="form-group">
+      <input type="email" id="email" placeholder=" " required />
+      <label for="email">Email Address</label>
+    </div>
+    <div class="form-group">
+      <input type="password" id="password" placeholder=" " required />
+      <label for="password">Password</label>
+    </div>
+    <button type="submit" class="btn">Login</button>
+  </form>
+
+  <div style="margin: 20px 0; text-align: center; color: #fff;">OR</div>
+
+  <div class="social-btn" id="googleLogin">
+    <i class="fab fa-google" ></i> Sign in with Google
+  </div>
+
+  <div class="register-link" style="color: #db4437;">
+    Don't have an account? <a href="#" id="registerBtn">Register here</a>
+  </div>
+</div>
+
+<!-- Registration Modal -->
+<div id="registerModal">
+  <div class="modal-content">
+    <button id="closeModal">&times;</button>
+    <h3 style="margin-bottom:20px;">Register</h3>
+    <form id="registerForm">
+      <div class="form-group">
+        <input type="text" id="regName" placeholder=" " required />
+        <label for="regName">Full Name</label>
+      </div>
+      <div class="form-group">
+        <input type="email" id="regEmail" placeholder=" " required />
+        <label for="regEmail">Email</label>
+      </div>
+      <div class="form-group">
+        <input type="password" id="regPassword" placeholder=" " required />
+        <label for="regPassword">Password</label>
+      </div>
+      <button type="submit" class="btn">Register</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.getElementById('loginForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    alert('Logged in successfully!');
+    window.location.href = 'grocessory-mall.html'; 
+  });
+
+  document.getElementById('googleLogin').addEventListener('click', function(){
+    alert('Google login clicked!');
+     window.location.href = 'grocessory-mall.html';
+  });
+
+  document.getElementById('registerBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    document.getElementById('registerModal').style.display = 'flex';
+  });
+
+  document.getElementById('closeModal').addEventListener('click', function(){
+    document.getElementById('registerModal').style.display = 'none';
+  });
+
+  document.getElementById('registerForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    alert('Registration successful!');
+    document.getElementById('registerModal').style.display = 'none';
+     window.location.href = 'grocessory-mall.html';
+  });
+</script>
+
+</body>
+</html>

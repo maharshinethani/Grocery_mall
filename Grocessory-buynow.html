@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grocessory - Buy Now</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <link rel="icon" href="logo1.jpg" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: url(login.jpg);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      backdrop-filter: blur(4px)
+    }
+
+    .buy-container {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      max-width: 900px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      color: #333;
+    }
+
+    #product-info {
+      display: none;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    #product-info img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #product-info h3 {
+      margin: 10px 0 5px;
+      font-size: 1.7rem;
+      color: green;
+    }
+
+    #product-info p {
+      font-size: 1.2rem;
+      margin: 4px 0;
+      color: #444;
+    }
+
+    .form-section {
+      display: none;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .form-column {
+      flex: 1 1 45%;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .form-group input:focus {
+      border-color: #008EFD;
+      box-shadow: 0 0 5px #f39c12aa;
+      font-size: 20px;
+    }
+
+    .form-group label {
+      position: absolute;
+      top: 50%;
+      left: 16px;
+      transform: translateY(-50%);
+      background: white;
+      padding: 0 5px;
+      color: #999;
+      transition: 0.3s;
+      pointer-events: none;
+    }
+
+    .form-group input:focus + label,
+    .form-group input:not(:placeholder-shown) + label {
+      top: -8px;
+      font-size: 0.75rem;
+      color: blue;
+    }
+
+    .form-group i {
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
+      color: #ccc;
+      pointer-events: none;
+    }
+
+    .btn {
+      padding: 14px 20px;
+      background:#008EFD;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background:blue;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .card-icons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .card-icons img {
+      height: 70px;
+      width: 90px;
+      border-radius: 6px;
+      background: #f2f2f2;
+      padding: 2px;
+    }
+
+    @media (max-width: 768px) {
+      form {
+        flex-direction: column;
+      }
+
+      .form-column {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="buy-container">
+    <h2>Buy Now</h2>
+
+    <!-- Product Info -->
+    <div id="product-info">
+      <img id="product-img" src="" alt="Product Image" />
+      <h3 id="product-name"></h3>
+      <p id="product-price"></p>
+      <p id="product-qty"></p>
+    </div>
+
+    <!-- Buttons to toggle forms -->
+    <div class="btn-container">
+      <button class="btn" onclick="showSection('payment')">Payment</button>
+      <button class="btn" onclick="showSection('image')">Scanner</button>
+      <button class="btn" onclick="showSection('cod')">Cash on Delivery</button>
+    </div>
+
+    <!-- Payment Form -->
+    <form id="payment" class="form-section" onsubmit="handlePaymentSubmit(event)">
+      <div class="form-column">
+        <div class="form-group">
+          <input type="text" id="name" placeholder=" " required />
+          <label for="name">Full Name</label>
+          <i class="fa fa-user"></i>
+        </div>
+        <div class="form-group">
+          <input type="email" id="email" placeholder=" " required />
+          <label for="email">Email</label>
+          <i class="fa fa-envelope"></i>
+        </div>
+        <div class="form-group">
+          <input type="tel" id="phone" placeholder=" " required />
+          <label for="phone">Phone</label>
+          <i class="fa fa-phone"></i>
+        </div>
+        <div class="form-group">
+          <input type="text" id="address" placeholder=" " required />
+          <label for="address">Address</label>
+          <i class="fa fa-map-marker-alt"></i>
+        </div>
+        <div class="form-group">
+          <input type="text" id="city" placeholder=" " required />
+          <label for="city">City</label>
+          <i class="fa fa-city"></i>
+        </div>
+        <div class="form-group">
+          <input type="text" id="pincode" placeholder=" " required />
+          <label for="pincode">Pincode</label>
+          <i class="fa fa-location-arrow"></i>
+        </div>
+      </div>
+
+      <div class="form-column">
+        <h4 style="color:#4a148c; margin-bottom: 15px;"><u>Cards Available</u></h4>
+        <div class="card-icons">
+          <img src="phonepe.png" alt="PhonePe" />
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png"
+            alt="MasterCard"
+          />
+          <img src="googlepe.webp" alt="Google Pay" />
+        </div>
+
+        <div class="form-group" style="margin-top: 20px;">
+          <input type="text" id="cardname" placeholder=" " required />
+          <label for="cardname">Name on Card</label>
+          <i class="fa fa-user"></i>
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="card" placeholder=" " required maxlength="16" pattern="\d{16}" title="16 digit card number" />
+          <label for="card">Card Number</label>
+          <i class="fa fa-credit-card"></i>
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="expiry" placeholder="MM/YY"   title="Format MM/YY" />
+          <label for="expiry">Expiry</label>
+          <i class="fa fa-calendar-alt"></i>
+        </div>
+
+        <div class="form-group">
+          <input type="password" id="cvv" placeholder=" " required maxlength="3" pattern="\d{3}" title="3 digit CVV" />
+          <label for="cvv">CVV</label>
+          <i class="fa fa-lock"></i>
+        </div>
+      </div>
+
+      <button type="submit" class="btn" style="width: 100%">Buy Now</button>
+    </form>
+
+    <!-- QR Code Section -->
+    <div
+      id="image"
+      class="form-section"
+      style="flex-direction: column; align-items: center; justify-content: center"
+    >
+      <h3>Scan QR Code to Pay Amount</h3>
+      <img
+        id="qr-code"
+        src="qrcode.png"
+        alt="QR Code"
+        style="width: 200px; height: 200px; border: 2px solid #ddd; border-radius: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1)"
+      />
+    </div>
+
+    <!-- Cash on Delivery Form -->
+    <form id="cod" class="form-section" onsubmit="handleCODSubmit(event)">
+      <div class="form-column">
+        <div class="form-group">
+          <input type="text" id="cod-name" placeholder=" " required />
+          <label for="cod-name">Name</label>
+          <i class="fa fa-user"></i>
+        </div>
+        <div class="form-group">
+          <input type="email" id="cod-email" placeholder=" " required />
+          <label for="cod-email">Email</label>
+          <i class="fa fa-envelope"></i>
+        </div>
+        <div class="form-group">
+          <input type="tel" id="cod-phone" placeholder=" " required />
+          <label for="cod-phone">Phone</label>
+          <i class="fa fa-phone"></i>
+        </div>
+        <div class="form-group">
+          <input type="text" id="cod-address" placeholder=" " required />
+          <label for="cod-address">Address</label>
+          <i class="fa fa-map-marker-alt"></i>
+        </div>
+      </div>
+      <div class="form-column">
+        <div class="form-group">
+          <input type="text" id="cod-dno" placeholder=" " required />
+          <label for="cod-dno">Door No</label>
+          <i class="fa fa-home"></i>
+        </div>
+        <div class="form-group">
+          <input type="text" id="cod-city" placeholder=" " required />
+          <label for="cod-city">City</label>
+          <i class="fa fa-city"></i>
+        </div>
+        <div class="form-group">
+          <input type="text" id="cod-state" placeholder=" " required />
+          <label for="cod-state">State</label>
+          <i class="fa fa-map"></i>
+        </div>
+        <div class="form-group">
+          <input type="text" id="cod-country" placeholder=" " required />
+          <label for="cod-country">Country</label>
+          <i class="fa fa-flag"></i>
+        </div>
+      </div>
+      <button type="submit" class="btn" style="width: 100%">Place COD Order</button>
+    </form>
+  </div>
+
+ <script>
+  const item = JSON.parse(localStorage.getItem('buyNowItem'));
+
+  function showSection(id) {
+    if (item) {
+      document.getElementById('product-info').style.display = 'block';
+      document.getElementById('product-img').src = item.image;
+      document.getElementById('product-name').textContent = item.name;
+      document.getElementById('product-price').textContent = `Price: ₹${item.price}`;
+      document.getElementById('product-qty').textContent = `Quantity: ${item.qty}`;
+    }
+
+    document.querySelectorAll('.form-section').forEach((sec) => (sec.style.display = 'none'));
+    const selected = document.getElementById(id);
+    if (selected) selected.style.display = 'flex';
+  }
+
+  // Show payment section on page load
+  showSection('payment');
+
+  function handlePaymentSubmit(event) {
+    event.preventDefault();
+    alert('Payment form submitted successfully!');
+    window.location.href = "Grocessory-receipt.html";
+  }
+
+  function handleCODSubmit(event) {
+    event.preventDefault();
+    
+    // Hide all forms
+    document.getElementById('cod').style.display = 'none';
+    document.getElementById('payment').style.display = 'none';
+    document.getElementById('image').style.display = 'none';
+
+    // Create success message
+    let message = document.getElementById('cod-message');
+    if (!message) {
+      message = document.createElement('p');
+      message.id = 'cod-message';
+      message.style.textAlign = 'center';
+      message.style.fontSize = '1.3rem';
+      message.style.color = '#27ae60';
+      message.style.marginTop = '20px';
+
+      const btnContainer = document.querySelector('.btn-container');
+      btnContainer.insertAdjacentElement('afterend', message);
+    }
+
+    message.textContent = 'Your product is placed on Cash on Delivery.';
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grocessory-SeaFood</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="icon" href="logo1.jpg" />
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #f0f4f8;
+      min-height: 100vh;
+      color: #333;
+      line-height: 1.6;
+      padding-top: 80px;
+    }
+
+    /* Cart icon styling */
+    .cart-icon {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #0062ff, #00d4ff);
+      color: white;
+      border-radius: 50%;
+      font-size: 26px;
+      z-index: 1000;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.3s;
+    }
+
+    .cart-icon:hover {
+      transform: scale(1.1) rotate(3deg);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(135deg, #0050e0, #0098ff);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #d32f2f;
+      color: #fff;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+    }
+
+    /* Section styles */
+    #categories {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    #categories h1 {
+      text-align: center;
+      color: #0a1930;
+      font-size: 44px;
+      font-weight: 700;
+      margin-bottom: 60px;
+      position: relative;
+    }
+
+    #categories h1::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -10px;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 6px;
+      background-color: #007bff;
+      border-radius: 3px;
+    }
+
+    /* Gallery grid */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    /* Card styles */
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Image styles with hover zoom effect */
+    .card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Caption styles */
+    .caption {
+      padding: 20px 15px 10px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.2em;
+      color: #2c3e50;
+    }
+
+    /* Price styling */
+    .price {
+      text-align: center;
+      font-size: 1.3em;
+      font-weight: 700;
+      color: #6a1b9a;
+      margin-bottom: 15px;
+    }
+
+    /* Button group styling */
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      padding: 15px;
+    }
+
+    /* Buttons styling */
+    .btn-group button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 0.95em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    /* Add to Cart button */
+    .add-btn {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .add-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Buy Now button */
+    .buy-btn {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .buy-btn:hover {
+      background-color: #218838;
+    }
+
+    /* Responsive adjustments */
+    @media(max-width: 600px) {
+      #categories h1 {
+        font-size: 32px;
+        margin-bottom: 40px;
+      }
+      .btn-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .btn-group button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Shopping cart icon -->
+  <div class="cart-icon" onclick="goToCart()">
+    <i class="fas fa-shopping-cart"></i>
+    <div class="cart-count" id="cartCount">0</div>
+  </div>
+
+  <!-- Categories Section -->
+  <section id="categories">
+    <h1><u>Seafood</u></h1>
+    <div class="gallery" id="gallery">
+      <!-- Example Product Card -->
+      <div class="card" data-name="Fish" data-image="Fish.jpg">
+        <img src="Fish.jpg" alt="Seafood" />
+        <div class="caption">Fish</div>
+        <div class="price">₹299/kg</div>
+        <div class="btn-group">
+          <button class="add-btn" onclick="addToCart(event, 'Fish', 'Fish.jpg','₹299/kg')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Fish', 'Fish.jpg', '₹299/kg')">Buy Now</button>
+        </div>
+      </div>
+      <!-- Repeat product cards with similar structure for other items -->
+      <div class="card" data-name="Shellfish" data-image="Shellfish.jpg">
+        <img src="Shellfish.jpg" alt="Shellfish" />
+        <div class="caption">Shellfish</div>
+        <div class="price">₹450/kg</div>
+        <div class="btn-group">
+          <button class="add-btn" onclick="addToCart(event, 'Shellfish', 'Shellfish.jpg','₹450/kg')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Shellfish', 'Shellfish.jpg','₹450/kg')">Buy Now</button>
+        </div>
+      </div>
+      <div class="card" data-name="Crustaceans" data-image="Crustaceans.jpg">
+        <img src="Crustaceans.jpg" alt="Crustaceans" />
+        <div class="caption">Crustaceans</div>
+        <div class="price">₹550/kg</div>
+        <div class="btn-group">
+          <button class="add-btn" onclick="addToCart(event, 'Crustaceans', 'Crustaceans.jpg','₹550/kg')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Crustaceans', 'Crustaceans.jpg','₹550/kg')">Buy Now</button>
+        </div>
+      </div>
+      <!-- Add more products as needed -->
+    </div>
+  </section>
+
+  <script>
+    function buyNow(name, image, price) {
+      const item = {
+        name,
+        image,
+        price,
+        qty: 1
+      };
+      localStorage.setItem("buyNowItem", JSON.stringify(item));
+      window.location.href = "Grocessory-buynow.html"; // Adjust the URL as needed
+    }
+
+    function addToCart(event, name, image, price) {
+      event.stopPropagation();
+      let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const index = cartItems.findIndex(item => item.name === name);
+      if (index !== -1) {
+        cartItems[index].qty += 1;
+      } else {
+        cartItems.push({ name, image, price, qty: 1, category: "Seafoods" });
+      }
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const totalCount = cartItems.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cartCount').textContent = totalCount;
+    }
+
+    function goToCart() {
+      window.location.href = 'Grocessory-cart.html';
+    }
+
+    // Initialize cart count on page load
+    updateCartCount();
+  </script>
+</body>
+</html>

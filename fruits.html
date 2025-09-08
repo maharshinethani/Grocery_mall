@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grocessory-Fruits-and-Vegetables</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="icon" href="logo1.jpg">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: white;
+      min-height: 100vh;
+    }
+
+    #categories {
+      max-width: 1300px;
+    }
+
+    #categories h1 {
+      text-align: center;
+      font-size: 40px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 3px solid #7b1fa2;
+    }
+
+    .caption {
+      padding: 14px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.15em;
+      letter-spacing: 0.5px;
+    }
+
+    .price {
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: #4a148c;
+      margin-bottom: 5px;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px;
+      background-color: #f8eafa;
+    }
+
+    .btn-group button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 0.95em;
+      cursor: pointer;
+      color: #fff;
+      background-color: green;
+      box-shadow: 0 4px 10px rgba(123, 31, 162, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .btn-group button:hover {
+      background-color: red;
+    }
+
+    .buy-btn {
+      background-color: #d84315;
+    }
+
+    .buy-btn:hover {
+      background-color: #ff7043;
+    }
+
+    .cart-icon {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 52px;
+      height: 52px;
+      background: #ff7043;
+      color: white;
+      border-radius: 50%;
+      font-size: 24px;
+      z-index: 1000;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(255, 87, 34, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+
+    .cart-icon:hover {
+      transform: scale(1.1);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #d32f2f;
+      color: white;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      box-shadow: 0 0 6px #b71c1c;
+      z-index: 1;
+    }
+
+    @media (max-width: 600px) {
+      .btn-group {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+      }
+
+      .btn-group button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cart-icon" onclick="goToCart()">
+    <i class="fas fa-shopping-cart"></i>
+    <div class="cart-count" id="cartCount">0</div>
+  </div>
+
+  <section id="categories">
+    <h1><u>Fruits-and-Vegetables</u></h1>
+    <div class="gallery" id="gallery">
+      <div class="card" data-name="Spinach" data-image="Spinach.jpg">
+        <img src="Spinach.jpg" alt="Seafood" />
+        <div class="caption">Spinach</div>
+        <div class="price">₹350/kg</div>
+        <div class="btn-group">
+          <button onclick="addToCart(event, 'Spinach', 'Spinach.jpg','₹350/kg')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Spinach', 'Spinach.jpg','₹350/kg')">Buy Now</button>
+        </div>
+      </div>
+      <div class="card" data-name="Coriander Leaves" data-image="Coriander Leaves.webp">
+        <img src="Coriander Leaves.webp" alt="Coriander Leaves" />
+        <div class="caption">Coriander Leaves</div>
+        <div class="price">₹250/kg</div>
+        <div class="btn-group">
+          <button onclick="addToCart(event, 'Coriander Leaves', 'Coriander Leaves.webp','₹250/kg')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Coriander Leaves', 'Coriander Leaves.webp','₹250/kg')">Buy Now</button>
+        </div>
+      </div>
+      <div class="card" data-name="Potatoes" data-image="Potatoes.jpg">
+        <img src="Potatoes.jpg" alt="Potatoes" />
+        <div class="caption">Potatoes</div>
+        <div class="price">₹550/kg</div>
+        <div class="btn-group">
+          <button onclick="addToCart(event, 'Potatoes', 'Potatoes.jpg','₹550/kg')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Potatoes', 'Potatoes.jpg','₹550/kg')">Buy Now</button>
+        </div>
+      </div>
+      <div class="card" data-name="Carrots" data-image="Carrots.jpg">
+        <img src="Carrots.jpg" alt="Carrots" />
+        <div class="caption">Carrots</div>
+        <div class="price">₹300/kg</div>
+        <div class="btn-group">
+          <button onclick="addToCart(event, 'Carrots', 'Carrots.jpg','₹300/kg')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Carrots', 'Carrots.jpg','₹300/kg')">Buy Now</button>
+        </div>
+      </div>
+      <div class="card" data-name="Oranges" data-image="Oranges.jpg">
+        <img src="Oranges.jpg" alt="Oranges" />
+        <div class="caption">Oranges</div>
+        <div class="price">₹220/pack</div>
+        <div class="btn-group">
+          <button onclick="addToCart(event, 'Oranges', 'Oranges.jpg','₹220/pack')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Oranges', 'Oranges.jpg','₹220/pack')">Buy Now</button>
+        </div>
+      </div>
+      <div class="card" data-name="Lemons" data-image="Lemons.webp">
+        <img src="Lemons.webp" alt="Lemons" />
+        <div class="caption">Lemons</div>
+        <div class="price">₹180/can</div>
+        <div class="btn-group">
+          <button onclick="addToCart(event, 'Oranges', 'Oranges.jpg','₹220/pack')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Oranges', 'Oranges.jpg','₹220/pack')">Buy Now</button>
+        </div>
+      </div>
+      <div class="card" data-name="Bananas" data-image="Bananas.jpg">
+        <img src="Bananas.jpg" alt="Bananas" />
+        <div class="caption">Bananas</div>
+        <div class="price">₹400/kg</div>
+        <div class="btn-group">
+          <button onclick="addToCart(event, 'Bananas', 'Bananas.jpg','₹400/kg')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow( 'Bananas', 'Bananas.jpg','₹400/kg')">Buy Now</button>
+        </div>
+      </div>
+      <div class="card" data-name="Mangoes" data-image="Mangoes.webp">
+        <img src="Mangoes.webp" alt="Mangoes" />
+        <div class="caption">Mangoes</div>
+        <div class="price">₹1200/jar</div>
+        <div class="btn-group">
+          <button onclick="addToCart(event, 'Mangoes', 'Mangoes.webp','₹1200/jar')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Mangoes', 'Mangoes.webp','₹1200/jar')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function buyNow(name, image, price) {
+    const item = {
+      name,
+      image,
+      price,
+      qty: 1
+    };
+    localStorage.setItem("buyNowItem", JSON.stringify(item));
+    window.location.href = "Grocessory-buynow.html"; // Change this to your Buy Now page filename
+  }
+
+    function addToCart(event,name, image,price) {
+      event.stopPropagation();
+      let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const index = cartItems.findIndex(item => item.name === name);
+      if (index !== -1) {
+        cartItems[index].qty += 1;
+      } else {
+        cartItems.push({ name, image,price ,qty: 1,category: "Fruits-and-Vegetables" });
+      }
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const totalCount = cartItems.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cartCount').textContent = totalCount;
+    }
+
+    function goToCart() {
+      window.location.href = 'Grocessory-cart.html';
+    }
+
+    updateCartCount();
+  </script>
+</body>
+
+</html>

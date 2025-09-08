@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grocessory Mall</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+  <link rel="icon" href="logo1.jpg">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #f8f9fa, #e0f7fa);
+      min-height: 100vh;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 55px;
+      background: linear-gradient(to right, #0a1930, #1b3a5e);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .logo h1 {
+      color: #fff;
+      font-size: 22px;
+      font-weight: bold;
+       letter-spacing: 0.5px;
+    }
+
+    .search-box {
+      flex-grow: 1;
+      margin: 0 20px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 8px 40px 8px 12px;
+      border-radius: 20px;
+      border: none;
+      font-size: 14px;
+    }
+
+    .search-box button {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: blue;
+      border: none;
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+.search-box input:focus {
+            border-color: #007bff; /* Highlight on focus */
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+        .search-box button:hover {
+            background-color: #0056b3;
+            transform: translateY(-50%) scale(1.05);
+        }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 20px;
+      transition: 0.3s;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+            background: rgba(255, 255, 255, 0.2); /* Subtle hover background */
+            color: #fff;
+            transform: translateY(-2px); /* Slight lift */
+        }
+    nav .social a {
+      padding: 6px;
+      border-radius: 50%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .facebook { background-color: #3b5998; color: white; }     /* Facebook Blue */
+    .twitter { background-color: #1da1f2; color: white; }      /* Twitter Blue */
+    .instagram { 
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, 
+                  #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      color: white;
+    }
+nav .social a:hover {
+            transform: scale(1.1) translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.3); /* Adjust for specific social colors */
+        }
+   .nav-img {
+            width: 50px; /* Larger profile image */
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #007bff; /* More prominent border */
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5); /* Outer glow */
+            transition: transform 0.3s ease;
+        }
+
+    main {
+      margin-top: 60px;
+    }
+
+    marquee {
+            background: #007bff; /* Primary brand blue */
+            color: white;
+            font-size: 17px;
+            padding: 8px 0;
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+    #home img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      display: block;
+    }
+
+    #about {
+       padding: 60px 20px; /* More padding */
+            background: #e9f5f9; /* Soft blue-grey background */
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+    }
+
+    #about h2 {
+       color: #0a1930; /* Darker heading */
+            margin-bottom: 15px;
+            font-size: 28px; /* Larger heading */
+            font-weight: 700;
+    }
+
+    #about p {
+    color: #3f3f3f; /* Darker, sophisticated grey */
+    font-size: 16.5px; /* Mid-point size */
+    max-width: 100%; /* Slightly narrower to emphasize the block */
+    margin: 20px auto; /* More margin top/bottom */
+    line-height: 1.75;
+    padding: 25px 35px; /* Generous padding inside the box */
+    background-color: #ffffff; /* White background for the text block */
+    border-radius: 10px; /* Slightly rounded corners */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* Soft, subtle shadow */
+    border-left: 5px solid #007bff; /* A prominent left border in your brand blue */
+    text-align: left; /* Keep text left-aligned inside the block */
+    position: relative; /* Needed for pseudo-elements if you want to add more flair */
+}
+
+/* Optional: Add a subtle quote-like element for extra flair */
+#about p::before {
+    content: "\201C"; /* Left double quotation mark */
+    font-family: serif; /* Use a serif font for the quote mark */
+    font-size: 4em; /* Large size */
+    color: rgba(0, 123, 255, 0.2); /* Light, transparent blue */
+    position: absolute;
+    top: 5px;
+    left: 15px;
+    line-height: 1;
+    z-index: 0;
+}
+
+#about p {
+    z-index: 1; /* Ensure text is above the pseudo-element */
+    position: relative; /* Already added, but good to re-emphasize */
+}
+    #categories {
+      padding: 30px 10px;
+      margin: 0 auto;
+      max-width: 1200px;
+     margin-top: 0.5%;
+
+    }
+
+    #categories h1 {
+      text-align: center;
+      color: #007bff;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card .caption {
+      text-align: center;
+      padding: 12px;
+      font-weight: bold;
+      background: linear-gradient(to right, #ffcc80, #ffe082); /* warm gradient */
+      color: #4e342e; /* rich brown for contrast */
+      font-size: 16px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      letter-spacing: 0.5px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* NEW: Shop link inside card */
+    .card .shop-link {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: #007bff; 
+      color: white;
+      padding: 6px 12px;
+      font-size: 15px;
+      border-radius: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+      text-decoration: none;
+      font-weight: 600;
+      user-select: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .card:hover .shop-link {
+      opacity: 1;
+    }
+ .card .shop-link:hover {
+            background-color: #0056b3;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+    #contactSection {
+      display: none;
+      padding: 30px 10px;
+      width: 100%;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    #contactSection.active {
+      display: block;
+    }
+
+    #contactSection form {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    #contactSection h2 {
+      text-align: center;
+      color: #1e88e5;
+      margin-bottom: 20px;
+    }
+
+    #contactSection label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #444;
+    }
+
+    #contactSection input,
+    #contactSection select,
+    #contactSection textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    #contactSection button {
+      background: #1e88e5;
+      color: white;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #contactSection button:hover {
+      background: #1565c0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"><h1>Grocessory Mall</h1></div>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search categories..." oninput="filterGallery()">
+      <button><i class="fa fa-search"></i></button>
+      <button id="voiceSearchBtn" style="background-color: green; margin-left: 5px;"><i class="fa fa-microphone"></i></button>
+    </div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#categories">Categories</a>
+      <a id="contactBtn">Contact</a>
+      <a href="Grocessory-cart.html">Cart</a>
+      <div class="social">
+        <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+      <img src="logo.jpg" class="nav-img" alt="Profile" />
+    </nav>
+  </header>
+
+  <main>
+    <section id="home">
+      <marquee direction="right" scrollamount="10">✨ Welcome to Grocessory Mall - Your One-Stop Shop for Quality Groceries & More! Enjoy exclusive offers and fresh arrivals daily! ✨</marquee>
+       
+      <img src="welcome.png" alt="Welcome Banner">
+    </section>
+<section id="about">
+            <h2>About Grocessory Mall</h2>
+            <p>At Grocessory Mall, we are committed to revolutionizing your shopping experience. As a leading multinational grocery provider, we offer an extensive range of high-quality fresh produce, pantry staples, personal care items, household essentials, and much more. Our mission is to deliver convenience, quality, and value directly to your doorstep, ensuring every meal and every moment is enhanced by our products. We pride ourselves on sustainable practices, exceptional customer service, and a seamless shopping journey.</p>
+        </section>
+    <section id="categories">
+      <h1>Shop by Categories</h1>
+      <div class="gallery" id="gallery">
+
+        <div class="card" data-name="seafood">
+          <img src="seafood.jpg" alt="Seafood">
+          <div class="caption">Sea-food</div>
+          <a href="Seafood.html" class="shop-link">Shop</a>
+        </div>
+
+        <div class="card" data-name="staples">
+          <img src="staples.png" alt="Staples">
+          <div class="caption">Staples</div>
+          <a href="Staples.html" class="shop-link">Shop</a>
+        </div>
+
+        <div class="card" data-name="stationery">
+          <img src="Stationery & Office Supplies.jpg" alt="Stationery">
+          <div class="caption">Stationery & Office Supplies</div>
+          <a href="Stationery.html" class="shop-link">Shop</a>
+        </div>
+
+        <div class="card" data-name="frozen">
+          <img src="frozen.jpg" alt="Frozen">
+          <div class="caption">Frozen</div>
+          <a href="Frozen.html" class="shop-link">Shop</a>
+        </div>
+
+        <div class="card" data-name="fruits">
+          <img src="Fruits-and-Vegetables.jpg" alt="Fruits">
+          <div class="caption">Fruits-and-Vegetables</div>
+          <a href="Fruits.html" class="shop-link">Shop</a>
+        </div>
+
+        <div class="card" data-name="pet">
+          <img src="pet-food.jpg" alt="Pet Food">
+          <div class="caption">Pet-food</div>
+          <a href="PetFood.html" class="shop-link">Shop</a>
+        </div>
+
+        <div class="card" data-name="baby">
+          <img src="baby.webp" alt="Baby Care">
+          <div class="caption">Baby</div>
+          <a href="BabyCare.html" class="shop-link">Shop</a>
+        </div>
+
+        <div class="card" data-name="bakery">
+          <img src="bakery.jpg" alt="Bakery">
+          <div class="caption">Bakery</div>
+          <a href="Bakery.html" class="shop-link">Shop</a>
+        </div>
+
+        <div class="card" data-name="household">
+          <img src="Household.jpg" alt="Household">
+          <div class="caption">Household</div>
+          <a href="Household.html" class="shop-link">Shop</a>
+        </div>
+
+        <div class="card" data-name="meat">
+          <img src="meat.jpg" alt="Meat">
+          <div class="caption">Meat</div>
+          <a href="Meat.html" class="shop-link">Shop</a>
+        </div>
+
+        <div class="card" data-name="personal">
+          <img src="Personal-Care.jpg" alt="Personal Care">
+          <div class="caption">Personal-Care</div>
+          <a href="PersonalCare.html" class="shop-link">Shop</a>
+        </div>
+
+        <div class="card" data-name="dairy">
+          <img src="Dairy.jpg" alt="Dairy">
+          <div class="caption">Dairy</div>
+          <a href="Dairy.html" class="shop-link">Shop</a>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="contactSection">
+      <h2>Contact Us</h2>
+      <form onsubmit="submitContactForm(event)">
+        <label for="name">Name</label>
+        <input type="text" id="name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" required>
+
+        <label for="category">Category</label>
+        <select id="category" required>
+          <option value="">Select</option>
+          <option value="general">General</option>
+          <option value="product">Product Based</option>
+          <option value="feedback">Feedback</option>
+        </select>
+
+        <label for="message">Message</label>
+        <textarea id="message" required></textarea>
+
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const contactBtn = document.getElementById('contactBtn');
+    const contactSection = document.getElementById('contactSection');
+    const voiceSearchBtn = document.getElementById('voiceSearchBtn'); //
+    const searchInput = document.getElementById('searchInput'); //
+
+    contactBtn.addEventListener('click', () => {
+      contactSection.classList.toggle('active');
+      window.scrollTo({ top: contactSection.offsetTop - 60, behavior: 'smooth' });
+    });
+
+    function submitContactForm(e) {
+      e.preventDefault();
+      alert("Your feedback has been submitted.");
+      e.target.reset();
+    }
+
+    function filterGallery() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const gallery = document.getElementById("gallery");
+      const cards = Array.from(gallery.getElementsByClassName("card"));
+
+      cards.sort((a, b) => {
+        const aName = a.dataset.name.toLowerCase();
+        const bName = b.dataset.name.toLowerCase();
+        return (aName.includes(input) ? 0 : 1) - (bName.includes(input) ? 0 : 1);
+      });
+
+      cards.forEach(card => gallery.appendChild(card));
+    }
+
+    // Voice search functionality
+    if ('webkitSpeechRecognition' in window) { //
+      const recognition = new webkitSpeechRecognition(); //
+      recognition.continuous = false; //
+      recognition.interimResults = true; //
+
+      let finalTranscript = ''; //
+
+      recognition.onstart = function() { //
+        console.log('Voice recognition started...'); //
+        voiceSearchBtn.style.backgroundColor = 'red'; //
+      };
+
+      recognition.onresult = function(event) { //
+        let interimTranscript = ''; //
+        for (let i = event.resultIndex; i < event.results.length; ++i) { //
+          const transcript = event.results[i][0].transcript; //
+          if (event.results[i].isFinal) { //
+            finalTranscript += transcript; //
+          } else {
+            interimTranscript += transcript; //
+          }
+        }
+        searchInput.value = finalTranscript || interimTranscript; //
+        filterGallery(); //
+      };
+
+      recognition.onend = function() { //
+        console.log('Voice recognition ended.'); //
+        voiceSearchBtn.style.backgroundColor = '#28a745'; //
+        if (finalTranscript) { //
+          searchInput.value = finalTranscript; //
+          filterGallery(); //
+        }
+        finalTranscript = ''; //
+      };
+
+      recognition.onerror = function(event) { //
+        console.error('Speech recognition error:', event.error); //
+        voiceSearchBtn.style.backgroundColor = '#28a745'; // Reset button color on error
+        if (event.error === 'no-speech') { //
+          alert('No speech was detected. Please try again.'); //
+        } else if (event.error === 'not-allowed') { //
+          alert('Microphone access was denied. Please allow microphone access in your browser settings.'); //
+        } else {
+          alert('An error occurred during speech recognition: ' + event.error); //
+        }
+        finalTranscript = ''; // Reset final transcript on error
+      };
+
+      voiceSearchBtn.addEventListener('click', () => { //
+        recognition.start(); //
+      });
+    } else {
+      voiceSearchBtn.style.display = 'none'; // Hide button if API is not supported
+      alert('Web Speech API is not supported in this browser. Please use Chrome for voice search functionality.'); //
+    }
+  </script>
+
+ 
+</body>
+</html>

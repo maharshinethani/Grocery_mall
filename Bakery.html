@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grocessory-Bakery</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="icon" href="logo1.jpg">
+<style>
+   * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif; /* Consistent font with main page */
+        }
+
+        body {
+            background: #f8f9fa; /* Light grey/off-white background */
+            min-height: 100vh;
+            color: #333; /* Darker text for readability */
+            line-height: 1.6;
+            padding-top: 80px; /* Space for the fixed cart icon */
+        }
+
+
+  #categories {
+            /* More padding */
+            margin: auto;
+            max-width: 1300px; /* Consistent max-width */
+        }
+
+        #categories h1 {
+            text-align: center;
+            color: #0a1930; /* Darker heading */
+            margin-bottom: 50px; /* More space below heading */
+            font-size: 44px; /* Larger heading */
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px; /* Space for the underline */
+        }
+
+        #categories h1::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 120px; /* Longer underline */
+            height: 5px; /* Thicker underline */
+            background-color: #007bff; /* Primary blue underline */
+            border-radius: 3px;
+        }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 3px solid #7b1fa2;
+    }
+
+    .caption {
+            padding: 18px 15px 10px 15px; /* Adjusted padding */
+            text-align: center;
+            font-weight: 600; /* Slightly less bold than title */
+            font-size: 1.25em; /* Larger caption */
+            color: #2c3e50; /* Darker, more prominent caption */
+            letter-spacing: 0.8px;
+        }
+
+    .price {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 600;
+      color: #4a148c;
+      margin-bottom: 5px;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px;
+      background-color: #f8eafa;
+    }
+
+    .btn-group button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 0.95em;
+      cursor: pointer;
+      color: white;
+      background-color:#0E4C94 ;
+      box-shadow: 0 4px 10px rgba(123, 31, 162, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .btn-group button:hover {
+      background-color: blue;
+    }
+
+    .buy-btn {
+      background-color: #0E4C94;
+    }
+
+    .buy-btn:hover {
+      background-color: blue;
+    }
+
+    .cart-icon {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(45deg, #007bff, #0056b3);
+      color: white;
+      border-radius: 50%;
+      font-size: 24px;
+      z-index: 1000;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(255, 87, 34, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+
+    .cart-icon:hover {
+            transform: scale(1.15) rotate(5deg); /* More dynamic hover */
+            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.6);
+            background: linear-gradient(45deg, #0056b3, #007bff); /* Subtle gradient shift */
+        }
+
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #d32f2f;
+      color: white;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      box-shadow: 0 0 6px #b71c1c;
+      z-index: 1;
+    }
+
+    @media (max-width: 600px) {
+      .btn-group {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+      }
+
+      .btn-group button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cart-icon" onclick="goToCart()">
+    <i class="fas fa-shopping-cart"></i>
+    <div class="cart-count" id="cartCount">0</div>
+  </div>
+
+  <section id="categories">
+    <h1><u>Bakery</u></h1>
+    <div class="gallery" id="gallery">
+      <div class="card" data-name="Breads" data-image="Breads.jpg">
+        <img src="Breads.jpg" alt="Seafood" />
+        <div class="caption">Breads</div>
+        <div class="price">₹350/kg</div>
+        <div class="btn-group">
+          <button onclick="addToCart(event, 'Breads', 'Breads.jpg','₹350/kg')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Breads', 'Breads.jpg','₹350/kg')">Buy Now</button>
+        </div>
+      </div>
+      <div class="card" data-name="Buns & Rolls" data-image="Buns & Rolls.webp">
+        <img src="Buns & Rolls.webp" alt="Buns & Rolls" />
+        <div class="caption">Buns & Rolls</div>
+        <div class="price">₹250/kg</div>
+        <div class="btn-group">
+          <button onclick="addToCart(event, 'Buns & Rolls', 'Buns & Rolls.webp','₹250/kg')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Buns & Rolls', 'Buns & Rolls.webp','₹250/kg')">Buy Now</button>
+        </div>
+      </div>
+      <div class="card" data-name="Cakes & Pastries" data-image="Cakes & Pastries.jpg">
+        <img src="Cakes & Pastries.jpg" alt="Cakes & Pastries" />
+        <div class="caption">Cakes & Pastries</div>
+        <div class="price">₹550/kg</div>
+        <div class="btn-group">
+          <button onclick="addToCart(event, 'Cakes & Pastries', 'Cakes & Pastries.jpg','₹550/kg')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Cakes & Pastries', 'Cakes & Pastries.jpg','₹550/kg')">Buy Now</button>
+        </div>
+      </div>
+      <div class="card" data-name="Muffins & Cupcakes" data-image="Muffins & Cupcakes.jpg">
+        <img src="Muffins & Cupcakes.jpg" alt="Muffins & Cupcakes" />
+        <div class="caption">Muffins & Cupcakes</div>
+        <div class="price">₹300/kg</div>
+        <div class="btn-group">
+          <button onclick="addToCart(event, 'Muffins & Cupcakes', 'Muffins & Cupcakes.jpg','₹300/kg')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Muffins & Cupcakes', 'Muffins & Cupcakes.jpg','₹300/kg')">Buy Now</button>
+        </div>
+      </div>
+      <div class="card" data-name="Donuts & Bagels" data-image="Donuts & Bagels.jpg">
+        <img src="Donuts & Bagels.jpg" alt="Donuts & Bagels" />
+        <div class="caption">Donuts & Bagels</div>
+        <div class="price">₹220/pack</div>
+        <div class="btn-group">
+          <button onclick="addToCart(event, 'Donuts & Bagels', 'Donuts & Bagels.jpg','₹220/pack')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Donuts & Bagels', 'Donuts & Bagels.jpg','₹220/pack')">Buy Now</button>
+        </div>
+      </div>
+      <div class="card" data-name="Cookies & Biscuits" data-image="Cookies & Biscuits.webp">
+        <img src="Cookies & Biscuits.webp" alt="Cookies & Biscuits" />
+        <div class="caption">Cookies & Biscuits</div>
+        <div class="price">₹180/can</div>
+        <div class="btn-group">
+          <button onclick="addToCart(event, 'Cookies & Biscuits', 'Lemons.webp','₹180/can')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Cookies & Biscuits', 'Lemons.webp','₹180/can')">Buy Now</button>
+        </div>
+      </div>
+      <div class="card" data-name="Croissants & Danish" data-image="Croissants & Danish.jpg">
+        <img src="Croissants & Danish.jpg" alt="Croissants & Danish" />
+        <div class="caption">Croissants & Danish</div>
+        <div class="price">₹400/kg</div>
+        <div class="btn-group">
+          <button onclick="addToCart(event, 'Croissants & Danish', 'Croissants & Danish.jpg','₹400/kg')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Croissants & Danish', 'Croissants & Danish.jpg','₹400/kg')">Buy Now</button>
+        </div>
+      </div>
+      <div class="card" data-name="Puffs & Savory Bakes" data-image="Puffs & Savory Bakes.jpg">
+        <img src="Puffs & Savory Bakes.jpg" alt="Puffs & Savory Bakes" />
+        <div class="caption">Puffs & Savory Bakes</div>
+        <div class="price">₹1200/jar</div>
+        <div class="btn-group">
+          <button onclick="addToCart(event, 'Puffs & Savory Bakes', 'Puffs & Savory Bakes.jpg','₹1200/jar')">Add to Cart</button>
+          <button class="buy-btn" onclick="buyNow('Puffs & Savory Bakes', 'Puffs & Savory Bakes.jpg','₹1200/jar')">Buy Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function buyNow(name, image, price) {
+    const item = {
+      name,
+      image,
+      price,
+      qty: 1
+    };
+    localStorage.setItem("buyNowItem", JSON.stringify(item));
+    window.location.href = "Grocessory-buynow.html"; // Change this to your Buy Now page filename
+  }
+
+    function addToCart(event,name, image,price) {
+      event.stopPropagation();
+      let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const index = cartItems.findIndex(item => item.name === name);
+      if (index !== -1) {
+        cartItems[index].qty += 1;
+      } else {
+        cartItems.push({ name, image,price ,qty: 1,category: "Bakery" });
+      }
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const totalCount = cartItems.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cartCount').textContent = totalCount;
+    }
+
+    function goToCart() {
+      window.location.href = 'Grocessory-cart.html';
+    }
+
+    updateCartCount();
+  </script>
+</body>
+
+</html>

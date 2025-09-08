@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grocessory-cart</title>
+  <link rel="icon" href="logo1.jpg">
+  <style>
+    * {
+      box-sizing: border-box;
+      transition: all 0.3s ease-in-out;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+      background: linear-gradient(135deg, #ffe0f7, #e1bee7);
+      min-height: 100vh;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .back-btn {
+      font-size: 14px;
+      padding: 8px 16px;
+      background-color: #7b1fa2;
+      color: white;
+      border-radius: 20px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 2px 6px #ab47bc;
+    }
+    .back-btn:hover {
+      background-color: #9c27b0;
+    }
+    .header h1 {
+      font-size: 24px;
+      color: #6a1b9a;
+      text-shadow: 1px 1px 3px #ba68c8;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(123, 31, 162, 0.2);
+    }
+    .cart-item:hover {
+      box-shadow: 0 8px 30px rgba(123, 31, 162, 0.4);
+      transform: scale(1.02);
+    }
+    .cart-item img {
+      width: 120px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-right: 25px;
+      border: 3px solid #9c27b0;
+    }
+    .cart-details {
+      flex-grow: 1;
+    }
+    .cart-details h3 {
+      margin: 0 0 10px;
+      color: #4a148c;
+      font-size: 20px;
+    }
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .qty-controls button {
+      padding: 10px 18px;
+      font-size: 18px;
+      border: none;
+      background-color: #8e24aa;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px #ba68c8;
+    }
+    .qty-controls button:hover {
+      background-color: #ab47bc;
+    }
+    .qty-controls span {
+      font-weight: 700;
+      font-size: 18px;
+      min-width: 35px;
+      text-align: center;
+    }
+    #total-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    #makePaymentBtn {
+      background-color: #6a1b9a;
+      color: white;
+      padding: 10px 25px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(123, 31, 162, 0.3);
+      border: none;
+    }
+    #makePaymentBtn:hover {
+      background-color: #8e24aa;
+    }
+    #total {
+      text-align: right;
+      font-size: 18px;
+      font-weight: 700;
+      color: #6a1b9a;
+      text-shadow: 1px 1px 2px #ab47bc;
+      background: #f3e5f5;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(123, 31, 162, 0.2);
+      white-space: pre-line;
+      max-width: 350px;
+    }
+    #emptyMsg {
+      text-align: center;
+      color: #4a148c;
+      font-size: 20px;
+      margin-top: 60px;
+      font-weight: 600;
+      background-color: #fce4ec;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(123, 31, 162, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+  <a href="waste.html" class="back-btn" style="font-size: 14px; padding: 8px 16px;">&larr; Back to Categories</a>
+  <div style="flex: 1; text-align: center;">
+    <h1 style="margin: 0; font-size: 24px; color: #6a1b9a; text-shadow: 1px 1px 3px #ba68c8;">Your Cart</h1>
+  </div>
+  <div style="width: 130px;"></div> <!-- Spacer to balance layout -->
+</div>
+
+
+  <div id="cartItems"></div>
+
+  <div id="total-section">
+    <button id="makePaymentBtn">Make Payment</button>
+    <div id="total"></div>
+  </div>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+    function renderCart() {
+      const container = document.getElementById("cartItems");
+      container.innerHTML = "";
+
+      if (cart.length === 0) {
+        document.getElementById("total").textContent = "";
+        container.innerHTML = '<div id="emptyMsg">Your cart is empty. Please add items from categories.</div>';
+        return;
+      }
+
+      let totalItems = 0;
+      cart.forEach((item, index) => {
+        totalItems += item.qty;
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" />
+          <div class="cart-details">
+            <h3>${item.name}</h3>
+            <div class="qty-controls">
+              <button onclick="decreaseQty(${index})">-</button>
+              <span>${item.qty}</span>
+              <button onclick="increaseQty(${index})">+</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+
+      const discount = totalItems >= 2 ? 0.03 : 0;
+      const pricePerItem = 100;
+      const totalPrice = totalItems * pricePerItem;
+      const discountAmount = totalPrice * discount;
+      const discountedPrice = totalPrice - discountAmount;
+
+      document.getElementById("total").innerHTML = 
+        `Total items: ${totalItems}\n` +
+        `Discount: ₹${discountAmount.toFixed(2)} ${discount > 0 ? '(3% discount applied)' : '(No discount)'}\n` +
+        `Total after discount: ₹${discountedPrice.toFixed(2)}`;
+    }
+
+    function increaseQty(index) {
+      cart[index].qty += 1;
+      saveAndRender();
+    }
+
+    function decreaseQty(index) {
+      if (cart[index].qty > 1) {
+        cart[index].qty -= 1;
+      } else {
+        cart.splice(index, 1);
+      }
+      saveAndRender();
+    }
+
+    function saveAndRender() {
+      localStorage.setItem("cartItems", JSON.stringify(cart));
+      renderCart();
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>
