@@ -12,40 +12,36 @@
 :root{
   --primary:#00d9ff;
   --secondary:#3cff96;
-  --accent:#b6ff00;
-  --white:#fff;
-  --btn-gradient:linear-gradient(90deg, #00ff90, #b6ff00);
+  --btn-gradient:linear-gradient(90deg,#00ff90,#b6ff00);
 }
-*{margin:0;padding:0;box-sizing:border-box;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
 
 body{
-  font-family:'Poppins',sans-serif;
   height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  overflow:hidden;
   background:#000;
+  overflow:hidden;
 }
 body::before{
   content:"";
   position:fixed;
   inset:0;
   background:url('login.jpg') center/cover no-repeat;
-  filter:blur(12px) brightness(0.55);
+  filter:blur(12px) brightness(.55);
   z-index:-1;
 }
 
-/* ================= PRELOADER ================= */
+/* ========== PRELOADER ========== */
 #preloader{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.25);
-  backdrop-filter:blur(15px);
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  backdrop-filter:blur(15px);
   z-index:9999;
 }
 .loader-logo{
@@ -55,27 +51,29 @@ body::before{
   background:linear-gradient(90deg,var(--primary),var(--secondary));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  animation:pulse 1.8s infinite alternate;
+  animation:pulse 1.6s infinite alternate;
 }
-@keyframes pulse{to{transform:scale(1.08);}}
+@keyframes pulse{to{transform:scale(1.08)}}
 
 .loader-icons{
-  margin-top:25px;
-  font-size:2.5rem;
-  color:#fff;
   display:flex;
-  gap:20px;
+  gap:22px;
+  margin-top:25px;
+  font-size:2.4rem;
+  color:#fff;
 }
-.loader-icons i{animation:float 1.8s infinite ease-in-out;}
+.loader-icons i{
+  animation:float 1.8s infinite ease-in-out;
+}
 .loader-icons i:nth-child(2){animation-delay:.3s}
 .loader-icons i:nth-child(3){animation-delay:.6s}
-@keyframes float{50%{transform:translateY(-18px);}}
+@keyframes float{50%{transform:translateY(-15px)}}
 
 .loading-bar{
   width:280px;
   height:6px;
   margin-top:30px;
-  background:rgba(255,255,255,.25);
+  background:#fff3;
   border-radius:10px;
   overflow:hidden;
 }
@@ -86,155 +84,121 @@ body::before{
   background:var(--btn-gradient);
   animation:load 3s forwards;
 }
-@keyframes load{to{width:100%;}}
+@keyframes load{to{width:100%}}
 
-/* ================= FORMS ================= */
+/* ========== FORM ========== */
 .form-container{
-  width:100%;
-  max-width:450px;
-  padding:45px;
-  background:var(--white);
+  width:420px;
+  background:#fff;
+  padding:40px;
   border-radius:25px;
-  box-shadow:0 25px 50px rgba(0,0,0,0.25);
-  text-align:center;
+  box-shadow:0 30px 70px rgba(0,0,0,.35);
   display:none;
-  animation:fadeIn 1s ease forwards;
-  transition:transform .4s ease, box-shadow .4s ease;
+  animation:fade .8s ease forwards;
 }
-.form-container:hover{
-  transform:translateY(-4px);
-  box-shadow:0 35px 70px rgba(0,0,0,.35);
-}
+@keyframes fade{from{opacity:0;transform:translateY(25px)}to{opacity:1}}
 
-h2{
-  font-size:2rem;
-  margin-bottom:30px;
-}
+h2{margin-bottom:25px}
 
 .form-group{
   position:relative;
   margin-bottom:22px;
 }
-
 .form-group input{
   width:100%;
-  padding:16px 20px;
+  padding:15px 45px 15px 18px;
   border:1px solid #ccc;
   border-radius:12px;
-  outline:none;
-  transition:.3s;
 }
 .form-group input:focus{
   border-color:var(--primary);
-  box-shadow:0 0 0 3px rgba(0,217,255,.15);
+  box-shadow:0 0 0 3px rgba(0,217,255,.2);
+  outline:none;
 }
-
 .form-group label{
   position:absolute;
-  left:20px;
+  left:18px;
   top:50%;
   transform:translateY(-50%);
-  color:#999;
+  color:#888;
   transition:.3s;
-  pointer-events:none;
 }
-.form-group input:focus + label,
-.form-group input:not(:placeholder-shown) + label{
-  top:-10px;
+.form-group input:focus+label,
+.form-group input:not(:placeholder-shown)+label{
+  top:-9px;
   font-size:.75rem;
   background:#fff;
   padding:0 6px;
   color:var(--primary);
 }
 
+.password-toggle{
+  position:absolute;
+  right:16px;
+  top:50%;
+  transform:translateY(-50%);
+  cursor:pointer;
+  color:#888;
+}
+
 .btn{
   width:100%;
-  padding:16px;
+  padding:15px;
   border:none;
   border-radius:12px;
   background:var(--btn-gradient);
   font-weight:600;
   cursor:pointer;
-  transition:.3s;
 }
-.btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 25px rgba(0,0,0,.25);
-}
+.btn:hover{opacity:.9}
 
-.or-text{
-  margin:22px 0;
-  font-weight:500;
-  color:#777;
-}
-
-.social-btn{
-  padding:14px;
-  background:#f5f5f5;
-  border-radius:12px;
-  cursor:pointer;
-  transition:.3s;
-}
-.social-btn:hover{
-  background:#eaeaea;
-  transform:scale(1.02);
+.msg{
+  margin-top:15px;
+  font-size:.9rem;
+  color:red;
+  display:none;
 }
 
 .register-link{
-  margin-top:22px;
+  margin-top:20px;
 }
 .register-link a{
   color:var(--primary);
   text-decoration:none;
-  font-weight:500;
 }
 
-/* ================= REGISTER MODAL ================= */
+/* ========== REGISTER MODAL ========== */
 #registerModal{
   position:fixed;
   inset:0;
   display:none;
   justify-content:center;
   align-items:center;
-  background:rgba(0,0,0,.45);
   backdrop-filter:blur(15px);
-  animation:fadeIn .6s ease forwards;
 }
 .modal-content{
-  max-width:450px;
-  width:100%;
-  padding:40px;
+  width:420px;
   background:#fff;
+  padding:40px;
   border-radius:25px;
   position:relative;
-  animation:slideUp .6s ease forwards;
+  animation:fade .6s ease;
 }
-@keyframes slideUp{
-  from{transform:translateY(30px);opacity:0;}
-  to{transform:translateY(0);opacity:1;}
-}
-
 #closeModal{
   position:absolute;
   top:15px;
-  right:15px;
+  right:18px;
   font-size:1.5rem;
   background:none;
   border:none;
   cursor:pointer;
-  transition:.3s;
-}
-#closeModal:hover{transform:rotate(90deg);}
-
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(20px);}
-  to{opacity:1;}
 }
 </style>
 </head>
 
 <body>
 
+<!-- PRELOADER -->
 <div id="preloader">
   <div class="loader-logo">GROCESSORY</div>
   <div class="loader-icons">
@@ -245,85 +209,108 @@ h2{
   <div class="loading-bar"><span></span></div>
 </div>
 
-<div class="form-container" id="loginFormContainer">
+<!-- LOGIN -->
+<div class="form-container" id="loginBox">
   <h2>Welcome Back</h2>
   <form id="loginForm">
     <div class="form-group">
-      <input type="email" placeholder=" " required>
+      <input type="email" id="loginEmail" placeholder=" " required>
       <label>Email</label>
     </div>
     <div class="form-group">
-      <input type="password" placeholder=" " required>
+      <input type="password" id="loginPassword" placeholder=" " required>
       <label>Password</label>
+      <i class="fa-solid fa-eye-slash password-toggle" onclick="toggle('loginPassword',this)"></i>
     </div>
     <button class="btn">Login</button>
+    <div class="msg" id="loginMsg"></div>
   </form>
 
-  <div class="or-text">OR</div>
-
-  <div class="social-btn" id="googleLogin">
-    <i class="fab fa-google"></i> Sign in with Google
-  </div>
-
   <div class="register-link">
-    Don’t have an account? <a href="#" id="registerBtn">Register here</a>
+    Don’t have an account? <a href="#" id="openRegister">Register</a>
   </div>
 </div>
 
+<!-- REGISTER -->
 <div id="registerModal">
   <div class="modal-content">
     <button id="closeModal">&times;</button>
     <h2>Create Account</h2>
     <form id="registerForm">
       <div class="form-group">
-        <input type="text" placeholder=" " required>
+        <input type="text" id="regName" placeholder=" " required>
         <label>Full Name</label>
       </div>
       <div class="form-group">
-        <input type="email" placeholder=" " required>
+        <input type="email" id="regEmail" placeholder=" " required>
         <label>Email</label>
       </div>
       <div class="form-group">
-        <input type="tel" placeholder=" " required>
-        <label>Phone Number</label>
-      </div>
-      <div class="form-group">
-        <input type="password" placeholder=" " required>
+        <input type="password" id="regPassword" placeholder=" " required>
         <label>Password</label>
+        <i class="fa-solid fa-eye-slash password-toggle" onclick="toggle('regPassword',this)"></i>
       </div>
       <div class="form-group">
-        <input type="password" placeholder=" " required>
+        <input type="password" id="regConfirm" placeholder=" " required>
         <label>Confirm Password</label>
+        <i class="fa-solid fa-eye-slash password-toggle" onclick="toggle('regConfirm',this)"></i>
       </div>
       <button class="btn">Create Account</button>
+      <div class="msg" id="regMsg"></div>
     </form>
   </div>
 </div>
 
 <script>
-window.addEventListener('load',()=>{
+window.onload=()=>{
   setTimeout(()=>{
-    document.getElementById('preloader').style.display='none';
-    document.getElementById('loginFormContainer').style.display='block';
-  },3500);
-});
-
-document.getElementById('loginForm').onsubmit=e=>{
-  e.preventDefault();
-  window.location.href="grocessory-mall.html";
+    preloader.style.display="none";
+    loginBox.style.display="block";
+  },3000);
 };
 
-document.getElementById('registerForm').onsubmit=e=>{
+openRegister.onclick=()=>registerModal.style.display="flex";
+closeModal.onclick=()=>registerModal.style.display="none";
+
+function toggle(id,icon){
+  const input=document.getElementById(id);
+  input.type=input.type==="password"?"text":"password";
+  icon.classList.toggle("fa-eye");
+  icon.classList.toggle("fa-eye-slash");
+}
+
+/* REGISTER */
+registerForm.onsubmit=e=>{
   e.preventDefault();
-  window.location.href="grocessory-mall.html";
+  if(regPassword.value!==regConfirm.value){
+    regMsg.textContent="Passwords do not match!";
+    regMsg.style.display="block";
+    return;
+  }
+  localStorage.setItem("user",
+    JSON.stringify({email:regEmail.value,password:regPassword.value})
+  );
+  alert("Registration Successful! Please Login.");
+  registerModal.style.display="none";
+  loginBox.style.display="block";
 };
 
-document.getElementById('registerBtn').onclick=e=>{
+/* LOGIN */
+loginForm.onsubmit=e=>{
   e.preventDefault();
-  document.getElementById('registerModal').style.display="flex";
-};
-document.getElementById('closeModal').onclick=()=>{
-  document.getElementById('registerModal').style.display="none";
+  const user=JSON.parse(localStorage.getItem("user"));
+  if(!user){
+    loginMsg.textContent="Please register first!";
+    loginMsg.style.display="block";
+    return;
+  }
+  if(loginEmail.value===user.email && loginPassword.value===user.password){
+    alert("Login Successful!");
+    window.location.href="grocessory-mall.html";
+  }else{
+    loginMsg.textContent="Wrong email or password!";
+    loginMsg.style.display="block";
+  }
 };
 </script>
 
